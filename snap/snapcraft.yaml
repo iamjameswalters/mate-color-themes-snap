@@ -1,11 +1,12 @@
-name: gtk-theme-yaru-mate
-base: core18
+name: mate-color-themes
+base: core20
 architectures:
-  - all
+  build-on: amd64
+  run-on: all
 version: '21.04.6'
-summary: Yaru MATE is the default theme for Ubuntu MATE 21.04 and newer.
+summary: A snap of the colorful variants of the Ubuntu MATE themes.
 description: |
-  Snap of the Yaru MATE GTK theme.
+  A snap containing the themes for all the color variants of the Ambiant and Yaru themes included in Ubuntu MATE.
 
 grade: stable
 confinement: strict
@@ -34,6 +35,7 @@ parts:
         snapcraftctl build
         mkdir -p $SNAPCRAFT_PART_INSTALL/share/themes
         mv $SNAPCRAFT_PART_INSTALL/usr/share/themes/Yaru-MATE* $SNAPCRAFT_PART_INSTALL/share/themes/
+        mv $SNAPCRAFT_PART_INSTALL/usr/share/themes/Ambiant-MATE* $SNAPCRAFT_PART_INSTALL/share/themes/
         $SNAPCRAFT_STAGE/split-gtk-theme.sh $SNAPCRAFT_PART_INSTALL
     stage:
       - share/gtk2/*/gtk-2.0
