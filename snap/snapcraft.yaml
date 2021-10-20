@@ -1,8 +1,8 @@
 name: mate-color-themes
-base: core20
+base: core18
 architectures:
-  build-on: amd64
-  run-on: all
+ - build-on: amd64
+   run-on: all
 version: '21.04.6'
 summary: A snap of the colorful variants of the Ubuntu MATE themes.
 description: |
