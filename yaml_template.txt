@@ -1,0 +1,57 @@
+name: mate-themes-{color}
+base: core18
+architectures:
+ - build-on: amd64
+   run-on: all
+version: '21.04.6.4'
+summary: Ubuntu MATE Color Themes - {color_capital}
+description: |
+  A snap containing the {color} color variant of the Ambiance, Radiance and Yaru themes for Ubuntu MATE.
+
+grade: stable
+confinement: strict
+
+slots:
+  gtk-2-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/gtk2/Yaru-MATE-{color_capital}-dark
+        - $SNAP/share/gtk2/Yaru-MATE-{color_capital}-light
+        - $SNAP/share/gtk2/Ambiant-MATE-{color_capital}
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-{color_capital}
+        - $SNAP/share/gtk2/Radiant-MATE-{color_capital}
+  gtk-3-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/themes/Yaru-MATE-{color_capital}-dark
+        - $SNAP/share/themes/Yaru-MATE-{color_capital}-light
+        - $SNAP/share/themes/Ambiant-MATE-{color_capital}
+        - $SNAP/share/themes/Ambiant-MATE-Dark-{color_capital}
+        - $SNAP/share/themes/Radiant-MATE-{color_capital}
+
+parts:
+  theme:
+    after:
+      - utils
+    plugin: dump
+    source: https://launchpad.net/~lah7/+archive/ubuntu/ubuntu-mate-colours/+files/ubuntu-mate-colours-{color}_$SNAPCRAFT_PROJECT_VERSION_all.deb
+    override-build: |
+        snapcraftctl build
+        mkdir -p $SNAPCRAFT_PART_INSTALL/share/themes
+        mv $SNAPCRAFT_PART_INSTALL/usr/share/themes/Yaru-MATE* $SNAPCRAFT_PART_INSTALL/share/themes/
+        mv $SNAPCRAFT_PART_INSTALL/usr/share/themes/Ambiant-MATE* $SNAPCRAFT_PART_INSTALL/share/themes/
+        mv $SNAPCRAFT_PART_INSTALL/usr/share/themes/Radiant-MATE* $SNAPCRAFT_PART_INSTALL/share/themes/
+        $SNAPCRAFT_STAGE/split-gtk-theme.sh $SNAPCRAFT_PART_INSTALL
+    stage:
+      - share/gtk2/*/gtk-2.0
+      - share/themes/*/gtk-3*
+      - share/themes/*/gtk-4*
+
+  utils:
+    plugin: dump
+    source: utils
+    prime:
+      - -*
+      
