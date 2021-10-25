@@ -1,6 +1,5 @@
+#!/usr/bin/env python3
 import os, shutil
-from rich.traceback import install
-install(show_locals=True)
 
 theme_colors = ("aqua", "blue", "brown", "orange", "pink", "purple", "red", "teal", "yellow")
 
