@@ -47,6 +47,4 @@ parts:
     source: utils
     prime:
       - -*
-    build-packages:
-      - try: [gtk-update-icon-cache]
-      - else: [libgtk-3-bin]
+      
